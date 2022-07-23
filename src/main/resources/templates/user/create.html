@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/inc/header :: header"></head>
+<body>
+<div th:replace="/inc/navbar :: navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-sm-6 container justify-content-center card">
+        <h1 class="text-center">Create New User</h1>
+            <div class="card-body">
+                <form th:action="@{/register}" th:object="${user}" method="POST">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" th:field="*{username}" placeholder="Enter Username" class="form-control" />
+                        <label>Password</label>
+                        <input type="password" name="password" th:field="*{password}" placeholder="Enter Password" class="form-control" />
+                        <label>First Name</label>
+                        <input type="text" name="firstName" th:field="*{firstName}" placeholder="Enter First Name" class="form-control" />
+                        <label>Last Name</label>
+                        <input type="text" name="lastName" th:field="*{lastName}" placeholder="Enter Last Name" class="form-control" />
+                        <label>Email</label>
+                        <input type="text" name="email" th:field="*{email}" placeholder="Enter Email" class="form-control" />
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/inc/footer :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<table th:fragment="list(appservices, isActionable)" id="appservices" class="table table-striped table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="appservice: ${appservices}">
+        <td><a th:href="@{/service/{id}(id=${appservice.id})}" th:text="${appservice.name}"></a></td>
+        <td th:text="${appservice.description}"></td>
+        <td th:text="${appservice.price}"></td>
+        <td>
+            <a th:if="${isActionable}" class="btn btn-primary" th:href="@{/appservice/edit/{id}(id=${appservice.id})}">Update</a>
+            <a class="btn btn-info" th:href="@{/appointment/new/{id}(id=${appservice.id})}">Add Appointment</a>
+            <form style="display: inline;" th:if="${isActionable}" th:action="@{/appservice/delete/{id}(id=${appservice.id})}" th:method="DELETE">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>

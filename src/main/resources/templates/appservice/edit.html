@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/inc/header :: header"></head>
+<body>
+<div th:replace="/inc/navbar :: navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center" th:content="Edit ${appservice.name}"></h1>
+            <div class="card-body">
+                <form th:action="@{/appservice/edit/{id} (id=${appservice.id})}" th:object="${appservice}" th:method="PUT">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="name" th:field="*{name}" placeholder="Enter Name" class="form-control" />
+                        <label>First Name</label>
+                        <input type="text" name="description" th:field="*{description}" placeholder="Enter Description" class="form-control" />
+                        <label>Last Name</label>
+                        <input type="number" step="0.01" name="price" th:field="*{price}" placeholder="Enter Price" class="form-control" />
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/inc/footer :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/inc/header :: header"></head>
+<body>
+<div th:replace="/inc/navbar :: navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center">Edit Appointment</h1>
+            <div class="card-body">
+                <form th:action="@{/appointment/edit/{id}(id=${appointment.id})}" th:object="${appointment}" th:method="PUT">
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="datetime-local" name="time" class="form-control" />
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/inc/footer :: footer"></div>
+</body>
+</html>

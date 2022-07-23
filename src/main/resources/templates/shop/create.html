@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/inc/header :: header"></head>
+<body>
+<div th:replace="/inc/navbar :: navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center">Create A New Shop</h1>
+            <div class="card-body">
+                <form th:action="@{/shop/new}" th:object="${shop}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" th:field="*{name}" placeholder="Enter Shop name" class="form-control" />
+                        <label>Description</label>
+                        <input type="text" name="description" th:field="*{description}" placeholder="Enter Description" class="form-control" />
+                        <label>Image</label>
+                        <input type="file" name="file" accept="image/x-png,image/jpeg" />
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/inc/footer :: footer"></div>
+</body>
+</html>

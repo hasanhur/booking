@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/inc/header :: header"></head>
+<body>
+<div th:replace="/inc/navbar :: navbar"></div>
+<div class="container">
+  <div class="row">
+    <h1>List Roles</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <a th:href="@{/role/new}" class="btn btn-primary btn-sm mb-3">Add Role</a>
+    </div>
+  </div>
+  <table th:replace="/inc/table/role :: list(${roles})"></table>
+</div>
+<div th:replace="/inc/footer :: footer"></div>
+</body>
+</html>

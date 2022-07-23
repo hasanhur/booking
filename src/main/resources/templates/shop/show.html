@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/inc/header :: header"></head>
+<body>
+<div th:replace="/inc/navbar :: navbar"></div>
+<div class="container" align="center">
+    <div class="row">
+        <div class="col-lg-3">
+            <a th:href="@{/service/new/{id} (id=${shop.id})}" class="btn btn-primary btn-sm mb-3">Add Service</a>
+        </div>
+    </div>
+    <h1 th:text="${shop.name}"></h1>
+    <p th:text="${shop.description}"></p>
+    <img th:src="@{/img/shop/{image}.jpg(image=${shop.image})}">
+    <h1>Services</h1>
+    <table th:replace="/inc/table/appservice :: list(${shop.appservices}, ${isActionable})"></table>
+    <br/>
+    <h1>Appointments</h1>
+    <table th:replace="/inc/table/appointment :: list(${appointments}, ${isShopOwner}, ${isAdmin})"></table>
+</div>
+<div th:replace="/inc/footer :: footer"></div>
+</body>
+</html>

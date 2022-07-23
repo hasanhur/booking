@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/inc/header :: header"></head>
+<body>
+<div th:replace="/inc/navbar :: navbar"></div>
+<div class="container" align="center">
+    <span>Date: </span><span th:text="${#strings.arraySplit(appointment.date, '.')[0]}"></span><br/>
+    <span>Status: </span><span th:text="${appointment.status}"></span><br/>
+    <span>User: </span><span th:text="${appointment.user.username}"></span><br/>
+    <span>Service: </span><span th:text="${appointment.appservice.name}"></span><br/>
+    <span>Price: </span><span th:text="${appointment.appservice.price}"></span>
+</div>
+<div th:replace="/inc/footer :: footer"></div>
+</body>
+</html>

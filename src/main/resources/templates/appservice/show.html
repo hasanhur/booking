@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/inc/header :: header"></head>
+<body>
+<div th:replace="/inc/navbar :: navbar"></div>
+<div class="container" align="center">
+    <div class="row">
+        <div class="col-lg-3" th:align="center">
+            <a th:href="@{/appointment/new/{id} (id=${appservice.id})}" class="btn btn-primary btn-sm mb-3">Add Appointment</a>
+        </div>
+    </div>
+    <h1 th:text="${appservice.name}"></h1>
+    <span>Description: </span><span th:text="${appservice.description}"></span><br/>
+    <span>Price: </span><span th:text="${appservice.price}"></span><br/>
+    <div th:if="${isActionable}">
+        <h1>Appointments</h1>
+        <table th:replace="/inc/table/appointment :: list(${appservice.appointments}, ${isShopOwner}, ${isAdmin})"></table>
+    </div>
+</div>
+<div th:replace="/inc/footer :: footer"></div>
+</body>
+</html>

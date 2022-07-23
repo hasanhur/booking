@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/inc/header :: header"></head>
+<body>
+<div th:replace="/inc/navbar :: navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <ul th:replace="/admin/inc/sidebar :: sidebar"></ul>
+        </div>
+        <div class="col-9">
+            <a class="btn btn-info" href="?filter=expired">Expired</a>
+            <a class="btn btn-info" href="?filter=thisWeek">This Week</a>
+            <h1>List Services</h1>
+            <table th:replace="/inc/table/service :: list(${services}, true, true)"> <!-- always true because only admins can see this page -->
+            </table>
+        </div>
+    </div>
+</div>
+<div th:replace="/inc/footer :: footer"></div>
+</body>
+</html>

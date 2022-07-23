@@ -1,0 +1,19 @@
+<table th:fragment="list(roles)" id="roles" class="table table-striped table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="role: ${roles}">
+        <td th:text="${role.name}"></td>
+        <td>
+            <a class="btn btn-primary" th:href="@{/role/edit/{id}(id=${role.id})}">Update</a>
+            <form style="display: inline;" th:action="@{/role/delete/{id}(id=${role.id})}" th:method="DELETE">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>

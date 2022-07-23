@@ -1,0 +1,39 @@
+<table th:fragment="list(appointments, isShopOwner, isAdmin)" id="appointments" class="table table-striped table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th>User</th>
+        <th>Service</th>
+        <th>Date</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="appointment: ${appointments}">
+        <td>
+            <a th:if="${isAdmin}" th:href="@{/user/{id}(id=${appointment.user.id})}" th:text="${appointment.user.username}"></a>
+            <span th:unless="${isAdmin}" th:text="${appointment.user.username}"></span>
+        </td>
+        <td th:text="${appointment.appservice.name}"></td>
+        <td th:text="${#strings.arraySplit(appointment.date, '.')[0]}"></td>
+        <td th:text="${appointment.appservice.price}"></td>
+        <td th:if="${isShopOwner}">
+            <form th:action="@{/appointment/update/{id}(id=${appointment.id})}" th:method="PUT">
+                <select name="status">
+                    <option th:each="status : ${T(com.example.bms.entity.Status).values()}" th:value="${status}" th:text="${status}" th:selected="${appointment.status} == ${status}"></option>
+                </select>
+                <button type="submit" class="btn btn-secondary">Change</button>
+            </form>
+        </td>
+        <td th:unless="${isShopOwner}" th:text="${appointment.status}"></td>
+        <td>
+            <a class="btn btn-info" th:href="@{/appointment/{id}(id=${appointment.id})}">Show</a>
+            <a class="btn btn-primary" th:href="@{/appointment/edit/{id}(id=${appointment.id})}">Update</a>
+            <form style="display: inline;" th:action="@{/appointment/delete/{id}(id=${appointment.id})}" th:method="DELETE">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>

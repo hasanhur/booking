@@ -1,0 +1,26 @@
+<table th:fragment="list(shops, isActionable)" id="shops" class="table table-striped table-bordered">
+  <thead class="table-dark">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Image</th>
+    <th th:if="${isActionable}">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="shop: ${shops}">
+    <td><a th:href="@{/shop/{id}(id=${shop.id})}" th:text="${shop.name}"></a></td>
+    <td th:text="${shop.description}"></td>
+    <td>
+      <img class="table-image" th:src="@{/img/shop/{image}.jpg(image=${shop.image})}">
+    </td>
+    <td th:if="${isActionable}">
+      <a class="btn btn-primary" th:href="@{/shop/edit/{id}(id=${shop.id})}">Update</a>
+      <a class="btn btn-info" th:href="@{/service/new/{id}(id=${shop.id})}">Add Service</a>
+      <form style="display: inline;" th:action="@{/shop/delete/{id}(id=${shop.id})}" th:method="DELETE">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
