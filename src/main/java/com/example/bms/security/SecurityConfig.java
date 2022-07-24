@@ -48,7 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
-//        http.authorizeRequests().antMatchers("/**").not().hasAuthority("ROLE_BANNED");
     }
 
     @Bean
