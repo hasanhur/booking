@@ -21,34 +21,34 @@ public class AppserviceServiceImpl implements AppserviceService {
         this.appserviceRepository = appserviceRepository;
     }
 
-    @Cacheable("appservices")
     @Override
     public List<Appservice> getAllAppservices() {
         log.info("Fetching all services from the database");
         return appserviceRepository.findAll();
     }
 
-    @CachePut(value = "appservice", key = "#appservice.id")
+    @CachePut(value = "appservices", key = "#appservice.id")
     @Override
     public Appservice saveAppservice(Appservice appservice) {
         log.info("Saving new service {} to the database", appservice.getName());
         return appserviceRepository.save(appservice);
     }
 
+    @Cacheable("appservices")
     @Override
     public Appservice getAppserviceById(Long id) {
         log.info("Fetching service by id {}", id);
         return appserviceRepository.findById(id).get();
     }
 
-    @CachePut(value = "appservice", key = "#appservice.id")
+    @CachePut(value = "appservices", key = "#appservice.id")
     @Override
     public Appservice updateAppservice(Appservice appservice) {
         log.info("Updating service {}", appservice.getName());
         return appserviceRepository.save(appservice);
     }
 
-    @CacheEvict(value = "appservice", key = "#id")
+    @CacheEvict(value = "appservices", key = "#id")
     @Override
     public void deleteAppserviceById(Long id) {
         log.info("Deleting service by id {}", id);

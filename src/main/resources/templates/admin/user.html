@@ -7,19 +7,59 @@
     <div class="row">
         <div class="col-3">
             <ul th:replace="/admin/inc/sidebar :: sidebar"></ul>
+            <form>
+                <label>Search</label>
+                <input type="text" name="query" placeholder="Enter Search Query" class="form-control" />
+                <label>Show only</label>
+                <select name="type" class="form-control">
+                    <option value="" selected></option>
+                    <option value="username">Username</option>
+                    <option value="full_name">Full name</option>
+                    <option value="first_name">First name</option>
+                </select>
+                <label>Sort by</label>
+                <select name="sort_by" class="form-control">
+                    <option value="" selected></option>
+                    <option value="id">ID</option>
+                    <option value="full_name_length">Length of full name</option>
+                </select>
+                <label>Status</label>
+                <select name="status" class="form-control">
+                    <option value="" selected></option>
+                    <option value="today">Has appointment today</option>
+                    <option value="none_last_week">No appointment last week</option>
+                </select>
+                <input type="checkbox" name="empty_first_name_count">
+                <label>Count empty first names</label><br/>
+                <label>Limit</label>
+                <select name="limit" class="form-control">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <label>Page</label>
+                <input type="number" name="page" class="form-control"/>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
         </div>
         <div class="col-9">
-            <h1>List Users</h1>
+            <p th:if="${type} == 'First Name'">There are [[${count}]] number of users without first name.</p>
 
-            <table th:if="${isFullNames}" id="users" class="table table-striped table-bordered">
+            <h1>Users</h1>
+            <table th:replace="/inc/table/user :: list(${users})"></table>
+
+            <table class="table table-striped table-bordered">
                 <thead class="table-dark">
                 <tr>
-                    <th>Full name</th>
+                    <th th:text="${type}"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="fullName: ${fullNames}">
-                    <td th:text="${fullName}"></td>
+                <tr th:each="name: ${names}">
+                    <td th:text="${name}"></td>
                 </tr>
                 </tbody>
             </table>

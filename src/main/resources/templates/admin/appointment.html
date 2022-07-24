@@ -7,11 +7,11 @@
     <div class="row">
         <div class="col-3">
             <ul th:replace="/admin/inc/sidebar :: sidebar"></ul>
-        </div>
-        <div class="col-9">
             <a class="btn btn-info" href="?filter=">All</a>
             <a class="btn btn-info" href="?filter=expired">Expired</a>
             <a class="btn btn-info" href="?filter=thisWeek">This Week</a>
+        </div>
+        <div class="col-9">
             <h1>List Appointments</h1>
             <table th:replace="/inc/table/appointment :: list(${appointments}, true, true)"> <!-- always true because only admins can see this page -->
             </table>

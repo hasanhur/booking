@@ -5,14 +5,14 @@
 <div th:replace="/inc/navbar :: navbar"></div>
 <div class="container">
     <div class="row">
-        <h1>List Shops</h1>
+        <h1>Shops</h1>
     </div>
     <div class="row">
-        <div class="col-lg-3">
-            <a th:href="@{/shop/new}" class="btn btn-primary btn-sm mb-3">Add Shop</a>
-        </div>
+        <a th:href="@{/shop/new}" class="btn btn-primary btn-sm mb-3">Add Shop</a>
     </div>
-    <table th:replace="/inc/table/shop :: list(${shops}, ${isActionable})"></table>
+    <div class="row">
+        <table th:replace="/inc/table/shop :: list(${shops}, ${isActionable})"></table>
+    </div>
 </div>
 <div th:replace="/inc/footer :: footer"></div>
 </body>

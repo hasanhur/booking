@@ -34,14 +34,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Cacheable("users")
     @Override
     public List<User> getAllUsers() {
         log.info("Fetching all users from the database");
         return userRepository.findAll();
     }
 
-    @CachePut(value = "user", key = "#id")
+    @CachePut(value = "users", key = "#user.id")
     @Override
     public User saveUser(User user) {
         log.info("Saving new user {} to the database", user.getUsername());
@@ -49,6 +48,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.save(user);
     }
 
+    @Cacheable("users")
     @Override
     public User getUserById(Long id) {
         log.info("Fetching user by id {}", id);
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    @CachePut(value = "user", key = "#id")
+    @CachePut(value = "users", key = "#user.id")
     @Override
     public User updateUser(User user) {
         log.info("Updating user {}", user.getUsername());
@@ -76,27 +76,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.getRoles().add(role);
     }
 
-    @CacheEvict(value = "user", key = "#id")
+    @CacheEvict(value = "users", key = "#id")
     @Override
     public void deleteUserById(Long id) {
         log.info("Deleting user by id {}", id);
         userRepository.deleteById(id);
     }
 
-    @Cacheable("roles")
     @Override
     public List<Role> getAllRoles() {
         log.info("Fetching all roles from the database");
         return roleRepository.findAll();
     }
 
-    @CachePut(value = "role", key = "#id")
+    @CachePut(value = "roles", key = "#role.id")
     @Override
     public Role saveRole(Role role) {
         log.info("Saving new role {} to the database", role.getName());
         return roleRepository.save(role);
     }
 
+    @Cacheable("roles")
     @Override
     public Role getRoleById(Long id) {
         log.info("Fetching role by id {}", id);
@@ -109,14 +109,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return roleRepository.findByName(name);
     }
 
-    @CachePut(value = "role", key = "#id")
+    @CachePut(value = "roles", key = "#role.id")
     @Override
     public Role updateRole(Role role) {
         log.info("Updating role {}", role.getName());
         return roleRepository.save(role);
     }
 
-    @CacheEvict(value = "role", key = "#id")
+    @CacheEvict(value = "roles", key = "#id")
     @Override
     public void deleteRoleById(Long id) {
         log.info("Deleting role by id {}", id);

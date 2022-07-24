@@ -21,7 +21,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    @Cacheable("appointments")
     @Override
     public List<Appointment> getAllAppointments() {
         log.info("Fetching all appointments from the database");
@@ -34,27 +33,28 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentRepository.findAllByShopId(id);
     }
 
-    @CachePut(value = "appointment", key = "#id")
+    @CachePut(value = "appointments", key = "#appointment.id")
     @Override
     public Appointment saveAppointment(Appointment appointment) {
         log.info("Saving new appointment by id {} to the database", appointment.getId());
         return appointmentRepository.save(appointment);
     }
 
+    @Cacheable(value = "appointments")
     @Override
     public Appointment getAppointmentById(Long id) {
         log.info("Fetching appointment by id {}", id);
         return appointmentRepository.findById(id).get();
     }
 
-    @CachePut(value = "appointment", key = "#id")
+    @CachePut(value = "appointments", key = "#appointment.id")
     @Override
     public Appointment updateAppointment(Appointment appointment) {
         log.info("Updating appointment by id {}", appointment.getId());
         return appointmentRepository.save(appointment);
     }
 
-    @CacheEvict(value = "appointment", key = "#id")
+    @CacheEvict(value = "appointments", key = "#id")
     @Override
     public void deleteAppointmentById(Long id) {
         log.info("Deleting appointment by id {}", id);

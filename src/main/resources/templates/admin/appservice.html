@@ -7,13 +7,52 @@
     <div class="row">
         <div class="col-3">
             <ul th:replace="/admin/inc/sidebar :: sidebar"></ul>
+            <form>
+                <div class="form-group">
+                    <label>Search</label>
+                    <input type="text" name="query" placeholder="Enter Search Query" class="form-control" />
+                    <label>Limit</label>
+                    <select name="limit" class="form-control">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <label>Page</label>
+                    <input type="number" name="page" class="form-control"/>
+                    <label>Minimum Price</label>
+                    <input type="number" name="min_price" step="0.01" class="form-control">
+                    <label>Only free services</label>
+                    <input type="checkbox" name="free">
+                    <label>Distinct names</label>
+                    <input type="checkbox" name="distinct">
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="col-9">
-            <a class="btn btn-info" href="?filter=expired">Expired</a>
-            <a class="btn btn-info" href="?filter=thisWeek">This Week</a>
-            <h1>List Services</h1>
-            <table th:replace="/inc/table/service :: list(${services}, true, true)"> <!-- always true because only admins can see this page -->
-            </table>
+            <h2>Services</h2>
+            <table th:replace="/inc/table/appservice :: list(${appservices}, true)"><!-- always true because only admins can see this page --></table>
+
+            <div th:if="${appserviceMap}">
+                <h2>The most expensive and the cheapest services</h2>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="appservice: ${appserviceMap}">
+                        <td th:text="${appservice['key']}"></td>
+                        <td th:text="${appservice['value']}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
