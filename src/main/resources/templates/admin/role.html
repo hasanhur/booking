@@ -7,13 +7,22 @@
     <div class="row">
         <div class="col-3">
             <ul th:replace="/admin/inc/sidebar :: sidebar"></ul>
+            <form>
+                <input type="radio" name="filter" value="with_prefix" />
+                <label>Only roles with prefix ROLE_</label></br>
+                <input type="radio" name="filter" value="without_prefix" />
+                <label>Only roles without prefix ROLE_</label>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
         </div>
         <div class="col-9">
-            <a class="btn btn-info" href="?filter=expired">Expired</a>
-            <a class="btn btn-info" href="?filter=thisWeek">This Week</a>
-            <h1>List Roles</h1>
-            <table th:replace="/inc/table/role :: list(${roles}, true, true)"> <!-- always true because only admins can see this page -->
-            </table>
+            <h1>Roles</h1>
+            <table th:replace="/inc/table/role :: list(${roles})"></table>
+            <div>
+                <p th:if="${hasPrefix}">Every role has a prefix ROLE_</p>
+                <p th:unless="${hasPrefix}">Not every role has a prefix ROLE_</p>
+                <p th:unless="${userRoleExists}">A default user role does not exist. <a th:href="@{/role/new}" class="btn btn-primary btn-sm mb-3">Add</a></p>
+            </div>
         </div>
     </div>
 </div>

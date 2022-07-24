@@ -21,34 +21,34 @@ public class ShopServiceImpl implements ShopService {
         this.shopRepository = shopRepository;
     }
 
-    @Cacheable("shops")
     @Override
     public List<Shop> getAllShops() {
         log.info("Fetching all shops from the database");
         return shopRepository.findAll();
     }
 
-    @CachePut(value = "shop", key = "#shop.id")
+    @CachePut(value = "shops", key = "#shop.id")
     @Override
     public Shop saveShop(Shop shop) {
         log.info("Saving new shop {} to the database", shop.getName());
         return shopRepository.save(shop);
     }
 
+    @Cacheable("shops")
     @Override
     public Shop getShopById(Long id) {
         log.info("Fetching shop by id {}", id);
         return shopRepository.findById(id).get();
     }
 
-    @CachePut(value = "shop", key = "#shop.id")
+    @CachePut(value = "shops", key = "#shop.id")
     @Override
     public Shop updateShop(Shop shop) {
         log.info("Updating shop {}", shop.getName());
         return shopRepository.save(shop);
     }
 
-    @CacheEvict(value = "shop", key = "#id")
+    @CacheEvict(value = "shops", key = "#id")
     @Override
     public void deleteShopById(Long id) {
         log.info("Deleting shop by id {}", id);

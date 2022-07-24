@@ -12,7 +12,7 @@
     <td><a th:href="@{/shop/{id}(id=${shop.id})}" th:text="${shop.name}"></a></td>
     <td th:text="${shop.description}"></td>
     <td>
-      <img class="table-image" th:src="@{/img/shop/{image}.jpg(image=${shop.image})}">
+      <img th:if="${shop.image != null}" class="table-image" th:src="@{/img/shop/{image}.jpg(image=${shop.image})}">
     </td>
     <td th:if="${isActionable}">
       <a class="btn btn-primary" th:href="@{/shop/edit/{id}(id=${shop.id})}">Update</a>

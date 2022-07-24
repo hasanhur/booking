@@ -5,7 +5,9 @@
 <div th:replace="/inc/navbar :: navbar"></div>
 <div class="container">
     <div class="row">
-        <h1>List Appointments</h1>
+        <h1>Appointments</h1>
+    </div>
+    <div class="row">
         <table th:replace="/inc/table/appointment :: list(${appointments}, ${isShopOwner}, ${isAdmin})"></table>
     </div>
 </div>

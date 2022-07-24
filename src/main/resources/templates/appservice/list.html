@@ -5,9 +5,11 @@
 <div th:replace="/inc/navbar :: navbar"></div>
 <div class="container">
     <div class="row">
-        <h1>List Services</h1>
+        <h1>Services</h1>
     </div>
-    <table th:replace="/inc/table/appservice :: list(${appservices}, ${isActionable})"></table>
+    <div class="row">
+        <table th:replace="/inc/table/appservice :: list(${appservices}, ${isActionable})"></table>
+    </div>
 </div>
 <div th:replace="/inc/footer :: footer"></div>
 </body>

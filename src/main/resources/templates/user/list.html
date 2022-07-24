@@ -2,18 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/inc/header :: header"></head>
 <body>
-<div th:replace="/inc/navbar :: navbar"></div>
-    <div class="container">
-      <div class="row">
-        <h1>List Users</h1>
-      </div>
-        <div class="row">
-            <div class="col-lg-3">
+    <div th:replace="/inc/navbar :: navbar"></div>
+        <div class="container">
+            <div class="row">
+                <h1>Users</h1>
+            </div>
+            <div class="row">
                 <a th:href="@{/user/new}" class="btn btn-primary btn-sm mb-3">Add User</a>
             </div>
+            <div class="row">
+                <table th:replace="/inc/table/user :: list(${users})"></table>
+            </div>
         </div>
-      <table th:replace="/inc/table/user :: list(${users})"></table>
-    </div>
-<div th:replace="/inc/footer :: footer"></div>
+    <div th:replace="/inc/footer :: footer"></div>
 </body>
 </html>
