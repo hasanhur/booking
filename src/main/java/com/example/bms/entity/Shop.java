@@ -8,7 +8,7 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 public class Shop {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "name")
@@ -27,13 +27,22 @@ public class Shop {
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
-    public Shop(Long id, String name, String description, String image, List<Appservice> appservices, User user) {
+    @OneToMany(cascade=ALL, mappedBy="shop")
+    private List<BusinessHour> businessHours;
+
+    @OneToOne
+    @JoinColumn(name="address_id")
+    private Address address;
+
+    public Shop(Long id, String name, String description, String image, List<Appservice> appservices, User user, List<BusinessHour> businessHours, Address address) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
         this.appservices = appservices;
         this.user = user;
+        this.businessHours = businessHours;
+        this.address = address;
     }
 
     public Shop() {
@@ -85,5 +94,21 @@ public class Shop {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<BusinessHour> getBusinessHours() {
+        return businessHours;
+    }
+
+    public void setBusinessHours(List<BusinessHour> businessHours) {
+        this.businessHours = businessHours;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

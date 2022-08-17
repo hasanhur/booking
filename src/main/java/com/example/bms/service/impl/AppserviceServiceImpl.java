@@ -4,9 +4,6 @@ import com.example.bms.entity.Appservice;
 import com.example.bms.repository.AppserviceRepository;
 import com.example.bms.service.AppserviceService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,28 +24,24 @@ public class AppserviceServiceImpl implements AppserviceService {
         return appserviceRepository.findAll();
     }
 
-    @CachePut(value = "appservices", key = "#appservice.id")
     @Override
     public Appservice saveAppservice(Appservice appservice) {
         log.info("Saving new service {} to the database", appservice.getName());
         return appserviceRepository.save(appservice);
     }
 
-    @Cacheable("appservices")
     @Override
     public Appservice getAppserviceById(Long id) {
         log.info("Fetching service by id {}", id);
         return appserviceRepository.findById(id).get();
     }
 
-    @CachePut(value = "appservices", key = "#appservice.id")
     @Override
     public Appservice updateAppservice(Appservice appservice) {
         log.info("Updating service {}", appservice.getName());
         return appserviceRepository.save(appservice);
     }
 
-    @CacheEvict(value = "appservices", key = "#id")
     @Override
     public void deleteAppserviceById(Long id) {
         log.info("Deleting service by id {}", id);

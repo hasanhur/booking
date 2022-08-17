@@ -13,9 +13,9 @@
         <td th:text="${appservice.description}"></td>
         <td th:text="${appservice.price}"></td>
         <td>
-            <a th:if="${isActionable}" class="btn btn-primary" th:href="@{/appservice/edit/{id}(id=${appservice.id})}">Update</a>
+            <a th:if="${isActionable}" class="btn btn-primary" th:href="@{/service/edit/{id}(id=${appservice.id})}">Update</a>
             <a class="btn btn-info" th:href="@{/appointment/new/{id}(id=${appservice.id})}">Add Appointment</a>
-            <form style="display: inline;" th:if="${isActionable}" th:action="@{/appservice/delete/{id}(id=${appservice.id})}" th:method="DELETE">
+            <form style="display: inline;" th:if="${isActionable}" th:action="@{/service/{id}(id=${appservice.id})}" th:method="DELETE">
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
         </td>

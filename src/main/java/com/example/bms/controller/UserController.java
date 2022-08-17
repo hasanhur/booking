@@ -4,18 +4,13 @@ import com.example.bms.entity.Role;
 import com.example.bms.entity.User;
 import com.example.bms.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 import java.util.*;
-
-import static org.springframework.security.authorization.AuthorityAuthorizationManager.hasAuthority;
-import static org.springframework.security.authorization.AuthorityAuthorizationManager.hasRole;
 
 @Slf4j
 @Controller
@@ -80,14 +75,16 @@ public class UserController {
     }
 
     @GetMapping("/user/edit/{id}")
-    public String editUserForm(@PathVariable Long id, Model model) {
+    public String editUserForm(@PathVariable Long id, Model model, HttpServletRequest request) {
         model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("roles", userService.getAllRoles());
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            model.addAttribute("roles", userService.getAllRoles());
+        }
         return "user/edit";
     }
 
-    @PutMapping("/user/edit/{id}")
-    public String updateUser(@PathVariable Long id, @ModelAttribute("user") User user, @ModelAttribute("roles") ArrayList<Role> roles) {
+    @PutMapping("/user/{id}")
+    public String updateUser(@PathVariable Long id, @ModelAttribute("user") User user, @ModelAttribute("roles") ArrayList<Role> roles, HttpServletRequest request) {
         // get user from database by id
         User existingUser = userService.getUserById(id);
 
@@ -97,14 +94,16 @@ public class UserController {
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
         existingUser.setEmail(user.getEmail());
-        existingUser.setRoles(user.getRoles());
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            existingUser.setRoles(user.getRoles());
+        }
 
         // update the user
         userService.updateUser(existingUser);
         return "redirect:/user";
     }
 
-    @DeleteMapping("/user/delete/{id}")
+    @DeleteMapping("/user/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
         return "redirect:/user";
@@ -124,7 +123,7 @@ public class UserController {
         return "role/create";
     }
 
-    @PostMapping("/role/new")
+    @PostMapping("/role")
     public String saveRole(@ModelAttribute("role") Role role) {
         userService.saveRole(role);
         return "redirect:/role";
@@ -136,7 +135,7 @@ public class UserController {
         return "role/edit";
     }
 
-    @PutMapping("/role/edit/{id}")
+    @PutMapping("/role/{id}")
     public String updateRole(@PathVariable Long id, @ModelAttribute("role") Role role) {
         // get role from database by id
         Role existingRole = userService.getRoleById(id);
@@ -146,7 +145,7 @@ public class UserController {
         return "redirect:/role";
     }
 
-    @DeleteMapping("/role/delete/{id}")
+    @DeleteMapping("/role/{id}")
     public String deleteRole(@PathVariable Long id) {
         userService.deleteRoleById(id);
         return "redirect:/role";

@@ -1,15 +1,12 @@
 package com.example.bms.entity;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @Entity
 public class Appointment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "appointment_date")

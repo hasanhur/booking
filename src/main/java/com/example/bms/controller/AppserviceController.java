@@ -1,16 +1,13 @@
 package com.example.bms.controller;
 
 import com.example.bms.entity.Appservice;
-import com.example.bms.entity.Shop;
 import com.example.bms.service.AppserviceService;
 import com.example.bms.service.ShopService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 
 @Controller
@@ -33,7 +30,8 @@ public class AppserviceController {
     }
 
     @GetMapping("/{id}")
-    public String showAppservice(Appservice appservice, Model model, HttpServletRequest request, Principal principal) {
+    public String showAppservice(@PathVariable Long id, Model model, HttpServletRequest request, Principal principal) {
+        Appservice appservice = appserviceService.getAppserviceById(id);
         boolean isShopOwner = principal.getName().equals(appservice.getShop().getUser().getUsername());
         boolean isActionable = request.isUserInRole("ROLE_ADMIN") || isShopOwner;
         model.addAttribute("appservice", appservice);
@@ -44,40 +42,28 @@ public class AppserviceController {
     }
 
     @GetMapping("/new/{id}")
-    public String createAppserviceForm(Shop shop, Model model, HttpServletRequest request, Principal principal) throws AccessDeniedException {
-        if (!request.isUserInRole("ROLE_ADMIN") && !shop.getUser().getUsername().equals(principal.getName())) {
-            throw new AccessDeniedException("403");
-        }
+    public String createAppserviceForm(@PathVariable Long id, Model model) {
         Appservice appservice = new Appservice();
         model.addAttribute("appservice", appservice);
-        model.addAttribute("shop", shop);
+        model.addAttribute("shop", shopService.getShopById(id));
         return "appservice/create";
     }
 
-    @PostMapping("/new/{id}")
-    public String saveAppservice(Shop shop, @ModelAttribute("appservice") Appservice appservice, HttpServletRequest request, Principal principal) throws AccessDeniedException {
-        if (!request.isUserInRole("ROLE_ADMIN") && !shop.getUser().getUsername().equals(principal.getName())) {
-            throw new AccessDeniedException("403");
-        }
-        appservice.setShop(shop);
+    @PostMapping("/shop/{id}")
+    public String saveAppservice(@PathVariable Long id, @ModelAttribute("appservice") Appservice appservice) {
+        appservice.setShop(shopService.getShopById(id));
         appserviceService.saveAppservice(appservice);
         return "redirect:/service";
     }
 
     @GetMapping("/edit/{id}")
-    public String editAppserviceForm(Appservice appservice, Model model, HttpServletRequest request, Principal principal) throws AccessDeniedException {
-        if (!request.isUserInRole("ROLE_ADMIN") && !appservice.getShop().getUser().getUsername().equals(principal.getName())) {
-            throw new AccessDeniedException("403");
-        }
-        model.addAttribute("appservice", appservice);
+    public String editAppserviceForm(@PathVariable Long id, Model model) {
+        model.addAttribute("appservice", appserviceService.getAppserviceById(id));
         return "appservice/edit";
     }
 
-    @PostMapping("/edit/{id}")
-    public String updateAppservice(@PathVariable Long id, Model model, @ModelAttribute("appservice") Appservice appservice, HttpServletRequest request, Principal principal) throws AccessDeniedException {
-        if (!request.isUserInRole("ROLE_ADMIN") && !appserviceService.getAppserviceById(id).getShop().getUser().getUsername().equals(principal.getName())) {
-            throw new AccessDeniedException("403");
-        }
+    @PutMapping("/{id}")
+    public String updateAppservice(@PathVariable Long id, @ModelAttribute("appservice") Appservice appservice) {
         // get appservice from database by id
         Appservice existingAppservice = appserviceService.getAppserviceById(id);
 
@@ -91,11 +77,8 @@ public class AppserviceController {
         return "redirect:/service";
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String deleteAppservice(@PathVariable Long id, HttpServletRequest request, Principal principal) throws AccessDeniedException {
-        if (!request.isUserInRole("ROLE_ADMIN") && !appserviceService.getAppserviceById(id).getShop().getUser().getUsername().equals(principal.getName())) {
-            throw new AccessDeniedException("403");
-        }
+    @DeleteMapping("/{id}")
+    public String deleteAppservice(@PathVariable Long id) {
         appserviceService.deleteAppserviceById(id);
         return "redirect:/service";
     }

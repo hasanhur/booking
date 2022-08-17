@@ -8,7 +8,7 @@
         <div class="col-lg-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center">Edit User</h1>
             <div class="card-body">
-                <form th:action="@{/user/edit/{id} (id=${user.id})}" th:object="${user}" th:method="PUT">
+                <form th:action="@{/user/{id} (id=${user.id})}" th:object="${user}" th:method="PUT">
                     <div class="form-group">
                         <label>Username</label>
                         <input type="text" name="username" th:field="*{username}" placeholder="Enter Username" class="form-control" />
@@ -20,10 +20,12 @@
                         <input type="text" name="lastName" th:field="*{lastName}" placeholder="Enter Last Name" class="form-control" />
                         <label>Email</label>
                         <input type="text" name="email" th:field="*{email}" placeholder="Enter Email" class="form-control" />
-                        <label>Roles</label>
-                        <select name="roles" th:field="*{roles}" th:multiple="true">
-                            <option th:each="role: ${roles}" th:value="${role.id}" th:text="${role.name}" />
-                        </select>
+                        <div th:if="${roles}">
+                            <label>Roles</label>
+                            <select name="roles" th:field="*{roles}" th:multiple="true">
+                                <option th:each="role: ${roles}" th:value="${role.id}" th:text="${role.name}" />
+                            </select>
+                        </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>

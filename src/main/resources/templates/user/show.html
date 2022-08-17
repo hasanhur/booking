@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/inc/header :: header"></head>
 <body>
 <div th:replace="/inc/navbar :: navbar"></div>
 <div class="container" align="center">
+    <div class="col-lg-3">
+        <a class="btn btn-primary btn-sm mb-3" th:href="@{/user/edit/{id}(id=${user.id})}">Edit</a>
+    </div>
     <h1 th:text="${user.username}"></h1>
     <span>E-mail: </span><span th:text="${user.email}"></span><br/>
     <span>First name: </span><span th:text="${user.firstName}"></span><br/>

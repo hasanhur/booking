@@ -8,7 +8,7 @@
     <div class="col-lg-6 col-sm-6 container justify-content-center card">
       <h1 class="text-center">Edit Role</h1>
       <div class="card-body">
-        <form th:action="@{/role/edit/{id} (id=${role.id})}" th:object="${role}" th:method="PUT">
+        <form th:action="@{/role/{id} (id=${role.id})}" th:object="${role}" th:method="PUT">
           <div class="form-group">
             <label>Name</label>
             <input type="text" name="name" th:field="*{name}" placeholder="Enter Name" class="form-control" />
