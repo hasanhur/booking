@@ -8,7 +8,7 @@
         <div class="col-lg-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center">Create A New Service</h1>
             <div class="card-body">
-                <form th:action="@{/service/new/{id} (id=${shop.id})}" th:object="${appservice}" method="POST">
+                <form th:action="@{/service/shop/{id} (id=${shop.id})}" th:object="${appservice}" method="POST">
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text" name="name" th:field="*{name}" placeholder="Enter Name" class="form-control" />

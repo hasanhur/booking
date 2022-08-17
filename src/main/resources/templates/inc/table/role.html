@@ -10,7 +10,7 @@
         <td th:text="${role.name}"></td>
         <td>
             <a class="btn btn-primary" th:href="@{/role/edit/{id}(id=${role.id})}">Update</a>
-            <form style="display: inline;" th:action="@{/role/delete/{id}(id=${role.id})}" th:method="DELETE">
+            <form style="display: inline;" th:action="@{/role/{id}(id=${role.id})}" th:method="DELETE">
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
         </td>

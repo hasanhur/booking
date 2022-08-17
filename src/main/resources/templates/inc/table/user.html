@@ -16,7 +16,7 @@
         <td th:text="${user.email}">@</td>
         <td>
             <a class="btn btn-primary" th:href="@{/user/edit/{id}(id=${user.id})}">Update</a>
-            <form style="display: inline;" th:action="@{/user/delete/{id}(id=${user.id})}" th:method="DELETE">
+            <form style="display: inline;" th:action="@{/user/{id}(id=${user.id})}" th:method="DELETE">
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
         </td>

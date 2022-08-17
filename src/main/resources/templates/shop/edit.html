@@ -8,14 +8,22 @@
         <div class="col-lg-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center">Edit [[${shop.name}]]</h1>
             <div class="card-body">
-                <form th:action="@{/shop/edit/{id} (id=${shop.id})}" th:object="${shop}" th:method="PUT" enctype="multipart/form-data">
+                <form th:action="@{/shop/{id} (id=${shop.id})}" th:object="${shop}" th:method="PUT" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" name="name" th:field="*{name}" placeholder="Enter Shop name" class="form-control" />
+                        <input type="text" name="name" th:field="*{name}" placeholder="Enter Shop name" class="form-control" th:value="${shop.name}" />
                         <label>Description</label>
-                        <input type="text" name="description" th:field="*{description}" placeholder="Enter Description" class="form-control" />
+                        <input type="text" name="description" th:field="*{description}" placeholder="Enter Description" class="form-control" th:value="${shop.description}" />
                         <label>Image</label>
-                        <input type="file" name="file" accept="image/x-png,image/jpeg" required="required"/>
+                        <input type="file" name="file" accept="image/x-png,image/jpeg"/>
+                        <h3>Business Hours</h3>
+                        <div th:each="day: ${T(com.example.bms.entity.Day).values()}">
+                            <h5 th:text="${#strings.capitalizeWords(#strings.toLowerCase(day))}"></h5>
+                            <label>Opening time</label>
+                            <input type="time" th:name="${#strings.toLowerCase(day)} + '_open'" class="form-control" />
+                            <label>Closing time</label>
+                            <input type="time" th:name="${#strings.toLowerCase(day)} + '_close'" class="form-control" />
+                        </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>

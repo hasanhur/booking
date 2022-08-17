@@ -19,7 +19,7 @@
         <td th:text="${#strings.arraySplit(appointment.date, '.')[0]}"></td>
         <td th:text="${appointment.appservice.price}"></td>
         <td th:if="${isShopOwner}">
-            <form th:action="@{/appointment/update/{id}(id=${appointment.id})}" th:method="PUT">
+            <form th:action="@{/appointment/{id}(id=${appointment.id})}" th:method="PUT">
                 <select name="status">
                     <option th:each="status : ${T(com.example.bms.entity.Status).values()}" th:value="${status}" th:text="${status}" th:selected="${appointment.status} == ${status}"></option>
                 </select>
@@ -30,7 +30,7 @@
         <td>
             <a class="btn btn-info" th:href="@{/appointment/{id}(id=${appointment.id})}">Show</a>
             <a class="btn btn-primary" th:href="@{/appointment/edit/{id}(id=${appointment.id})}">Update</a>
-            <form style="display: inline;" th:action="@{/appointment/delete/{id}(id=${appointment.id})}" th:method="DELETE">
+            <form style="display: inline;" th:action="@{/appointment/{id}(id=${appointment.id})}" th:method="DELETE">
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
         </td>

@@ -6,9 +6,6 @@ import com.example.bms.repository.RoleRepository;
 import com.example.bms.repository.UserRepository;
 import com.example.bms.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,7 +37,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findAll();
     }
 
-    @CachePut(value = "users", key = "#user.id")
     @Override
     public User saveUser(User user) {
         log.info("Saving new user {} to the database", user.getUsername());
@@ -48,7 +44,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.save(user);
     }
 
-    @Cacheable("users")
     @Override
     public User getUserById(Long id) {
         log.info("Fetching user by id {}", id);
@@ -61,7 +56,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    @CachePut(value = "users", key = "#user.id")
     @Override
     public User updateUser(User user) {
         log.info("Updating user {}", user.getUsername());
@@ -76,7 +70,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.getRoles().add(role);
     }
 
-    @CacheEvict(value = "users", key = "#id")
     @Override
     public void deleteUserById(Long id) {
         log.info("Deleting user by id {}", id);
@@ -89,14 +82,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return roleRepository.findAll();
     }
 
-    @CachePut(value = "roles", key = "#role.id")
     @Override
     public Role saveRole(Role role) {
         log.info("Saving new role {} to the database", role.getName());
         return roleRepository.save(role);
     }
 
-    @Cacheable("roles")
     @Override
     public Role getRoleById(Long id) {
         log.info("Fetching role by id {}", id);
@@ -109,14 +100,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return roleRepository.findByName(name);
     }
 
-    @CachePut(value = "roles", key = "#role.id")
     @Override
     public Role updateRole(Role role) {
         log.info("Updating role {}", role.getName());
         return roleRepository.save(role);
     }
 
-    @CacheEvict(value = "roles", key = "#id")
     @Override
     public void deleteRoleById(Long id) {
         log.info("Deleting role by id {}", id);

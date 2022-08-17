@@ -8,7 +8,7 @@
                 <h1>Users</h1>
             </div>
             <div class="row">
-                <a th:href="@{/user/new}" class="btn btn-primary btn-sm mb-3">Add User</a>
+                <a th:href="@{/register}" class="btn btn-primary btn-sm mb-3">Add User</a>
             </div>
             <div class="row">
                 <table th:replace="/inc/table/user :: list(${users})"></table>

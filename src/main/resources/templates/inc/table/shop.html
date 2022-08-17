@@ -17,7 +17,7 @@
     <td th:if="${isActionable}">
       <a class="btn btn-primary" th:href="@{/shop/edit/{id}(id=${shop.id})}">Update</a>
       <a class="btn btn-info" th:href="@{/service/new/{id}(id=${shop.id})}">Add Service</a>
-      <form style="display: inline;" th:action="@{/shop/delete/{id}(id=${shop.id})}" th:method="DELETE">
+      <form style="display: inline;" th:action="@{/shop/{id}(id=${shop.id})}" th:method="DELETE">
         <button type="submit" class="btn btn-danger">Delete</button>
       </form>
     </td>
