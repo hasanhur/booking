@@ -1,5 +1,9 @@
 # Live Application
-https://booking-ms.herokuapp.com
+https://booking-ms.herokuapp.com <br>
+
+Admin panel demo <br>
+username: admin <br>
+password: admin <br>
 
 # Stack
 Java, PostgreSQL, Spring Boot, Spring Security, Spring Data JPA, Hibernate, JUnit 5, Thymeleaf
